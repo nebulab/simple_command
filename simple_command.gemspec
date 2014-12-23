@@ -4,13 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'simple_command/version'
 
 Gem::Specification.new do |spec|
+  spec.required_ruby_version = '~> 2.0'
   spec.name          = "simple_command"
   spec.version       = SimpleCommand::VERSION
   spec.authors       = ["Andrea Pavoni"]
   spec.email         = ["andrea.pavoni@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Easy way to build and manage commands (aka: service objects)}
+  spec.description   = %q{Easy way to build and manage commands (aka: service objects)}
+  spec.homepage      = "http://github.com/nebulab/simple_command"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

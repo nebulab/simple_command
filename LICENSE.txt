@@ -1,4 +1,4 @@
-Copyright (c) 2014 Andrea Pavoni
+Copyright (c) 2014 Nebulab S.r.l. (http://nebulab.it)
 
 MIT License
 
