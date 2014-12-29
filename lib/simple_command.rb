@@ -1,4 +1,3 @@
-# TODO: use autoload
 require "simple_command/version"
 require "simple_command/errors"
 
@@ -7,17 +6,18 @@ module SimpleCommand
   def perform
     raise NotImplemented if !defined?(:super)
 
+    @performed = true
     @result = super
 
     self
   end
 
   def success?
-    !failure?
+    performed? && !failure?
   end
 
   def failure?
-    errors.any?
+    performed? && errors.any?
   end
 
   def result
@@ -29,6 +29,10 @@ module SimpleCommand
   end
 
   private
+
+  def performed?
+    @performed ||= false
+  end
 
   def add_error(key, value)
     errors[key] ||= []
