@@ -69,8 +69,17 @@ describe SimpleCommand do
   end
 
   describe '#result' do
-    it 'returns the result of command execution' do
-      expect(command.perform.result).to eq(4)
+
+    context 'when #perform was called' do
+      it 'returns the result of command execution' do
+        expect(command.perform.result).to eq(4)
+      end
+    end
+
+    context 'when perform is not called yet' do
+      it 'returns nil' do
+        expect(command.result).to be_nil
+      end
     end
   end
 
