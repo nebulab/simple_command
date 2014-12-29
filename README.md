@@ -44,7 +44,7 @@ class AuthenticateUser
     if user = User.authenticate(@email, @password)
       return user
     else
-      add_error(authentication: "authenticate_user.failure")
+      add_error(authentication: I18n.t "authenticate_user.failure")
     end
     nil
   end
