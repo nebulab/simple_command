@@ -4,7 +4,9 @@ require "simple_command/errors"
 module SimpleCommand
 
   def perform
-    raise NotImplemented if !defined?(:super)
+    if !defined?(super)
+      raise NotImplementedError
+    end
 
     @performed = true
     @result = super

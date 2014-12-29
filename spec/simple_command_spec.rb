@@ -3,15 +3,20 @@ require 'spec_helper'
 describe SimpleCommand do
   let(:command) { SuccessCommand.new(2) }
   let(:fail_command) { FailCommand.new(2) }
+  let(:missed_perform_command) { MissedPerformCommand.new(2) }
 
   describe '#perform' do
-    it 'returns the self object' do
+    it 'returns the command object' do
       expect(command.perform).to be_a(SuccessCommand)
+    end
+
+    it 'raises an exception if the method is not defined in the command' do
+      expect { missed_perform_command.perform }.to raise_error(SimpleCommand::NotImplementedError)
     end
   end
 
   describe '#success?' do
-    context 'when #perform was called' do
+    context 'when #perform was already called' do
       it 'is true by default' do
         expect(command.perform.success?).to be_truthy
       end
@@ -51,7 +56,7 @@ describe SimpleCommand do
   end
 
   describe '#failure?' do
-    context 'when #perform was called' do
+    context 'when #perform was already called' do
       it 'is false by default' do
         expect(command.perform.failure?).to be_falsy
       end
@@ -69,8 +74,7 @@ describe SimpleCommand do
   end
 
   describe '#result' do
-
-    context 'when #perform was called' do
+    context 'when #perform was already called' do
       it 'returns the result of command execution' do
         expect(command.perform.result).to eq(4)
       end
