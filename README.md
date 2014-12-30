@@ -8,10 +8,12 @@ A simple, standardized way to build and use _Service Objects_ (aka _Commands_) i
 
 ## Installation
 
+*NOTE:* this gem is not yet published on rubygems, use the github repository.
+
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_command'
+gem 'simple_command', github: 'nebulab/simple_command'
 ```
 
 And then execute:
@@ -61,7 +63,7 @@ class SessionsController < ApplicationController
 
     # check command outcome
     if command.success?
-      # command.result will contain the user instance, if found
+      # command#result will contain the user instance, if found
       session[:user_token] = command.result.secret_token
       redirect_to root_path
     else
