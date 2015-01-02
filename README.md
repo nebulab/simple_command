@@ -8,8 +8,6 @@ A simple, standardized way to build and use _Service Objects_ (aka _Commands_) i
 
 ## Installation
 
-*NOTE:* this gem is not yet published on rubygems, use the github repository.
-
 Add this line to your application's Gemfile:
 
 ```ruby
