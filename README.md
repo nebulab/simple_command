@@ -11,7 +11,7 @@ A simple, standardized way to build and use _Service Objects_ (aka _Commands_) i
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_command', github: 'nebulab/simple_command'
+gem 'simple_command'
 ```
 
 And then execute:
