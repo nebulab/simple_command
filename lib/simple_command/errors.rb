@@ -1,3 +1,3 @@
 module SimpleCommand
-  class NotImplementedError < ::StandardError ; end
+  class NotImplementedError < ::StandardError; end
 end

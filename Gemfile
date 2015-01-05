@@ -5,4 +5,5 @@ gemspec
 
 group :development do
   gem 'simplecov'
+  gem 'rubocop'
 end

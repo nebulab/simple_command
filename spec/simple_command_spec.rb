@@ -12,7 +12,9 @@ describe SimpleCommand do
     end
 
     it 'raises an exception if the method is not defined in the command' do
-      expect { missed_perform_command.perform }.to raise_error(SimpleCommand::NotImplementedError)
+      expect do
+        missed_perform_command.perform
+      end.to raise_error(SimpleCommand::NotImplementedError)
     end
   end
 
@@ -81,5 +83,4 @@ describe SimpleCommand do
       end
     end
   end
-
 end

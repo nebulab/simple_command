@@ -1,12 +1,11 @@
-require "simple_command/version"
-require "simple_command/errors"
+require 'simple_command/version'
+require 'simple_command/errors'
 
 module SimpleCommand
+  attr_reader :result
 
   def perform
-    if !defined?(super)
-      raise NotImplementedError
-    end
+    fail NotImplementedError unless defined?(super)
 
     @performed = true
     @result = super
@@ -20,10 +19,6 @@ module SimpleCommand
 
   def failure?
     performed? && errors.any?
-  end
-
-  def result
-    @result
   end
 
   def errors
