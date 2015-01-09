@@ -4,6 +4,16 @@ require 'simple_command/errors'
 module SimpleCommand
   attr_reader :result
 
+  module ClassMethods
+    def perform(*args)
+      new(*args).perform
+    end
+  end
+
+  def self.prepended(base)
+    base.extend ClassMethods
+  end
+
   def perform
     fail NotImplementedError unless defined?(super)
 

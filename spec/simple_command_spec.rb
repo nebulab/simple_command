@@ -4,6 +4,23 @@ describe SimpleCommand do
   let(:command) { SuccessCommand.new(2) }
   let(:fail_command) { FailCommand.new(2) }
 
+  describe '.perform' do
+    before do
+      allow(SuccessCommand).to receive(:new).and_return(command)
+      allow(command).to receive(:perform)
+
+      SuccessCommand.perform 2
+    end
+
+    it 'initializes the command' do
+      expect(SuccessCommand).to have_received(:new)
+    end
+
+    it 'calls #perform method' do
+      expect(command).to have_received(:perform)
+    end
+  end
+
   describe '#perform' do
     let(:missed_perform_command) { MissedPerformCommand.new(2) }
 
