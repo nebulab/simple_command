@@ -2,10 +2,10 @@
 
 # inherit_from: .rubocop_todo.yml
 
-AllCops:
-  Exclude:
-    - 'simple_command.gemspec'
-    - 'spec/factories/**/*'
+# AllCops:
+#   Exclude:
+#     - 'simple_command.gemspec'
+#     - 'spec/factories/**/*'
 
 # Style/Encoding:
 #   Enabled: when_needed
