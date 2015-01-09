@@ -57,7 +57,8 @@ Then, in your controller:
 class SessionsController < ApplicationController
   def create
     # initialize and execute the command
-    command = AuthenticateUser.new(session_params[:user], session_params[:password]).perform
+    # NOTE: `.perform` is a shortcut for `.new(args).perform)`
+    command = AuthenticateUser.perform(session_params[:user], session_params[:password])
 
     # check command outcome
     if command.success?
