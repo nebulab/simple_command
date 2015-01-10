@@ -79,6 +79,39 @@ describe SimpleCommand do
     end
   end
 
+  describe '#add_error' do
+    before do
+      command.add_error :some_error, 'some error description'
+    end
+
+    it 'adds the error' do
+      expect(command.errors[:some_error]).to eq(['some error description'])
+    end
+
+    it 'adds the same error only once' do
+      command.add_error :some_error, 'some error description'
+      expect(command.errors[:some_error]).to eq(['some error description'])
+    end
+  end
+
+  describe '#add_errors' do
+    let(:errors) do
+      {
+        some_error: ['some error description'],
+        another_error: ['another error description']
+      }
+    end
+
+    before do
+      command.add_errors errors
+    end
+
+    it 'populates #errors with the added errors' do
+      expect(command.errors[:some_error]).to eq(errors[:some_error])
+      expect(command.errors[:another_error]).to eq(errors[:another_error])
+    end
+  end
+
   describe '#errors' do
     let(:errors) { command.perform.errors }
 

@@ -35,14 +35,21 @@ module SimpleCommand
     @errors ||= {}
   end
 
+  def add_error(key, value)
+    errors[key] ||= []
+    errors[key] << value
+    errors[key].uniq!
+  end
+
+  def add_errors(errors_hash)
+    errors_hash.each do |key, values|
+      values.each { |value| add_error key, value }
+    end
+  end
+
   private
 
   def performed?
     @performed ||= false
-  end
-
-  def add_error(key, value)
-    errors[key] ||= []
-    errors[key] << value
   end
 end
