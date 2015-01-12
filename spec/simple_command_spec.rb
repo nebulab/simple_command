@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe SimpleCommand do
   let(:command) { SuccessCommand.new(2) }
-  let(:fail_command) { FailCommand.new(2) }
 
   describe '.perform' do
     before do
@@ -41,7 +40,8 @@ describe SimpleCommand do
     end
 
     it 'is false if something went wrong' do
-      expect(fail_command.perform.success?).to be_falsy
+      command.errors.add_error(:some_error, 'some message')
+      expect(command.perform.success?).to be_falsy
     end
 
     context 'when perform is not called yet' do
@@ -69,7 +69,8 @@ describe SimpleCommand do
     end
 
     it 'is true if something went wrong' do
-      expect(fail_command.perform.failure?).to be_truthy
+      command.errors.add_error(:some_error, 'some message')
+      expect(command.perform.failure?).to be_truthy
     end
 
     context 'when perform is not called yet' do
@@ -80,23 +81,23 @@ describe SimpleCommand do
   end
 
   describe '#errors' do
-    let(:errors) { command.perform.errors }
-
     it 'returns an SimpleCommand::Errors' do
-      expect(errors).to be_a(SimpleCommand::Errors)
+      expect(command.errors).to be_a(SimpleCommand::Errors)
     end
 
     context 'with no errors' do
       it 'is empty' do
-        expect(errors).to be_empty
+        expect(command.errors).to be_empty
       end
     end
 
     context 'with errors' do
-      let(:errors) { fail_command.perform.errors }
+      before do
+        command.errors.add_error(:some_error, 'some message')
+      end
 
       it 'has a key with error message' do
-        expect(errors[:wrong_math]).to_not be_nil
+        expect(command.errors[:some_error]).to eq(['some message'])
       end
     end
   end
