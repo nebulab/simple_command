@@ -18,7 +18,7 @@ describe SimpleCommand::Errors do
     end
   end
 
-  describe '#add_errors' do
+  describe '#add_multiple_errors' do
     let(:errors_list) do
       {
         some_error: ['some error description'],
@@ -27,7 +27,7 @@ describe SimpleCommand::Errors do
     end
 
     before do
-      errors.add_errors errors_list
+      errors.add_multiple_errors errors_list
     end
 
     it 'populates itself with the added errors' do

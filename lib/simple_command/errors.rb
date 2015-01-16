@@ -8,7 +8,7 @@ module SimpleCommand
       self[key].uniq!
     end
 
-    def add_errors(errors_hash)
+    def add_multiple_errors(errors_hash)
       errors_hash.each do |key, values|
         values.each { |value| add_error key, value }
       end
