@@ -38,9 +38,9 @@ class AuthenticateUser
     @password = password
   end
 
-  # mandatory: define a #perform method. its return value will be available
+  # mandatory: define a #call method. its return value will be available
   #            through #result
-  def perform
+  def call
     if user = User.authenticate(@email, @password)
       return user
     else
@@ -57,8 +57,8 @@ Then, in your controller:
 class SessionsController < ApplicationController
   def create
     # initialize and execute the command
-    # NOTE: `.perform` is a shortcut for `.new(args).perform)`
-    command = AuthenticateUser.perform(session_params[:user], session_params[:password])
+    # NOTE: `.call` is a shortcut for `.new(args).call)`
+    command = AuthenticateUser.call(session_params[:user], session_params[:password])
 
     # check command outcome
     if command.success?

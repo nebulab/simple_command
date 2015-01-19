@@ -1,4 +1,4 @@
-class MissedPerformCommand
+class MissedCallCommand
   prepend SimpleCommand
 
   def initialize(input)

@@ -3,48 +3,48 @@ require 'spec_helper'
 describe SimpleCommand do
   let(:command) { SuccessCommand.new(2) }
 
-  describe '.perform' do
+  describe '.call' do
     before do
       allow(SuccessCommand).to receive(:new).and_return(command)
-      allow(command).to receive(:perform)
+      allow(command).to receive(:call)
 
-      SuccessCommand.perform 2
+      SuccessCommand.call 2
     end
 
     it 'initializes the command' do
       expect(SuccessCommand).to have_received(:new)
     end
 
-    it 'calls #perform method' do
-      expect(command).to have_received(:perform)
+    it 'calls #call method' do
+      expect(command).to have_received(:call)
     end
   end
 
-  describe '#perform' do
-    let(:missed_perform_command) { MissedPerformCommand.new(2) }
+  describe '#call' do
+    let(:missed_call_command) { MissedCallCommand.new(2) }
 
     it 'returns the command object' do
-      expect(command.perform).to be_a(SuccessCommand)
+      expect(command.call).to be_a(SuccessCommand)
     end
 
     it 'raises an exception if the method is not defined in the command' do
       expect do
-        missed_perform_command.perform
+        missed_call_command.call
       end.to raise_error(SimpleCommand::NotImplementedError)
     end
   end
 
   describe '#success?' do
     it 'is true by default' do
-      expect(command.perform.success?).to be_truthy
+      expect(command.call.success?).to be_truthy
     end
 
     it 'is false if something went wrong' do
       command.errors.add_error(:some_error, 'some message')
-      expect(command.perform.success?).to be_falsy
+      expect(command.call.success?).to be_falsy
     end
 
-    context 'when perform is not called yet' do
+    context 'when call is not called yet' do
       it 'is false by default' do
         expect(command.success?).to be_falsy
       end
@@ -53,10 +53,10 @@ describe SimpleCommand do
 
   describe '#result' do
     it 'returns the result of command execution' do
-      expect(command.perform.result).to eq(4)
+      expect(command.call.result).to eq(4)
     end
 
-    context 'when perform is not called yet' do
+    context 'when call is not called yet' do
       it 'returns nil' do
         expect(command.result).to be_nil
       end
@@ -65,15 +65,15 @@ describe SimpleCommand do
 
   describe '#failure?' do
     it 'is false by default' do
-      expect(command.perform.failure?).to be_falsy
+      expect(command.call.failure?).to be_falsy
     end
 
     it 'is true if something went wrong' do
       command.errors.add_error(:some_error, 'some message')
-      expect(command.perform.failure?).to be_truthy
+      expect(command.call.failure?).to be_truthy
     end
 
-    context 'when perform is not called yet' do
+    context 'when call is not called yet' do
       it 'is false by default' do
         expect(command.failure?).to be_falsy
       end

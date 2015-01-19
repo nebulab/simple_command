@@ -5,7 +5,7 @@ class SuccessCommand
     @input = input
   end
 
-  def perform
+  def call
     @input * 2
   end
 end

@@ -5,8 +5,8 @@ module SimpleCommand
   attr_reader :result
 
   module ClassMethods
-    def perform(*args)
-      new(*args).perform
+    def call(*args)
+      new(*args).call
     end
   end
 
@@ -14,21 +14,21 @@ module SimpleCommand
     base.extend ClassMethods
   end
 
-  def perform
+  def call
     fail NotImplementedError unless defined?(super)
 
-    @performed = true
+    @called = true
     @result = super
 
     self
   end
 
   def success?
-    performed? && !failure?
+    called? && !failure?
   end
 
   def failure?
-    performed? && errors.any?
+    called? && errors.any?
   end
 
   def errors
@@ -37,7 +37,7 @@ module SimpleCommand
 
   private
 
-  def performed?
-    @performed ||= false
+  def called?
+    @called ||= false
   end
 end
