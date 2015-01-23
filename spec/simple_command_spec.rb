@@ -40,7 +40,7 @@ describe SimpleCommand do
     end
 
     it 'is false if something went wrong' do
-      command.errors.add_error(:some_error, 'some message')
+      command.errors.add(:some_error, 'some message')
       expect(command.call.success?).to be_falsy
     end
 
@@ -69,7 +69,7 @@ describe SimpleCommand do
     end
 
     it 'is true if something went wrong' do
-      command.errors.add_error(:some_error, 'some message')
+      command.errors.add(:some_error, 'some message')
       expect(command.call.failure?).to be_truthy
     end
 
@@ -93,7 +93,7 @@ describe SimpleCommand do
 
     context 'with errors' do
       before do
-        command.errors.add_error(:some_error, 'some message')
+        command.errors.add(:some_error, 'some message')
       end
 
       it 'has a key with error message' do

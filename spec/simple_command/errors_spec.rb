@@ -3,9 +3,9 @@ require 'spec_helper'
 describe SimpleCommand::Errors do
   let(:errors) { SimpleCommand::Errors.new }
 
-  describe '#add_error' do
+  describe '#add' do
     before do
-      errors.add_error :some_error, 'some error description'
+      errors.add :some_error, 'some error description'
     end
 
     it 'adds the error' do
@@ -13,7 +13,7 @@ describe SimpleCommand::Errors do
     end
 
     it 'adds the same error only once' do
-      errors.add_error :some_error, 'some error description'
+      errors.add :some_error, 'some error description'
       expect(errors[:some_error]).to eq(['some error description'])
     end
   end
