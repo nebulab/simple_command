@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/nebulab/simple_command/badges/gpa.svg)](https://codeclimate.com/github/nebulab/simple_command)
+
 # SimpleCommand
 
 A simple, standardized way to build and use _Service Objects_ (aka _Commands_) in Ruby
