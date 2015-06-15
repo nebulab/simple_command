@@ -23,6 +23,14 @@ module SimpleCommand
     self
   end
 
+  def pipe(command, *args)
+    return command.call(self.result, *args) if self.success?
+
+    # not very clean, but at least you can rescue the error and know which
+    # command failed
+    fail BrokenPipeError.new(self.class.name)
+  end
+
   def success?
     called? && !failure?
   end

@@ -1,5 +1,6 @@
 module SimpleCommand
   class NotImplementedError < ::StandardError; end
+  class BrokenPipeError < ::StandardError; end
 
   class Errors < Hash
     def add(key, value, _opts = {})

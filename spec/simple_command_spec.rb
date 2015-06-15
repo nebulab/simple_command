@@ -4,19 +4,8 @@ describe SimpleCommand do
   let(:command) { SuccessCommand.new(2) }
 
   describe '.call' do
-    before do
-      allow(SuccessCommand).to receive(:new).and_return(command)
-      allow(command).to receive(:call)
-
-      SuccessCommand.call 2
-    end
-
-    it 'initializes the command' do
-      expect(SuccessCommand).to have_received(:new)
-    end
-
-    it 'calls #call method' do
-      expect(command).to have_received(:call)
+    it 'executes the command' do
+      expect(SuccessCommand.call(2).result).to eq(4)
     end
   end
 
@@ -27,10 +16,31 @@ describe SimpleCommand do
       expect(command.call).to be_a(SuccessCommand)
     end
 
+    it 'executes the command' do
+      expect(command.call.result).to eq(4)
+    end
+
     it 'raises an exception if the method is not defined in the command' do
       expect do
         missed_call_command.call
       end.to raise_error(SimpleCommand::NotImplementedError)
+    end
+  end
+
+  describe '#pipe' do
+    it 'pipes parent result output to child command input' do
+      expect(command.call.pipe(SuccessCommand).result).to eq(8)
+    end
+
+    it 'accepts optional additional args for the child command' do
+      expect(command.call.pipe(PipedCommand, 2).result).to eq(10)
+    end
+
+    it 'raises an exception if the parent command has failed' do
+      command.errors.add(:some_error, 'some message')
+      expect do
+        command.pipe(SuccessCommand)
+      end.to raise_error(SimpleCommand::BrokenPipeError, 'SuccessCommand')
     end
   end
 
