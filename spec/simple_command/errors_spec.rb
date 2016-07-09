@@ -35,4 +35,24 @@ describe SimpleCommand::Errors do
       expect(errors[:another_error]).to eq(errors_list[:another_error])
     end
   end
+
+  describe '#each' do
+    let(:errors_list) do
+      {
+        email: ['taken'],
+        password: ['blank', 'too short']
+      }
+    end
+
+    before { errors.add_multiple_errors(errors_list) }
+
+    it 'yields each message for the same key independently' do
+      expect { |b| errors.each(&b) }.to yield_control.exactly(3).times
+      expect { |b| errors.each(&b) }.to yield_successive_args(
+        [:email, 'taken'],
+        [:password, 'blank'],
+        [:password, 'too short']
+      )
+    end
+  end
 end
