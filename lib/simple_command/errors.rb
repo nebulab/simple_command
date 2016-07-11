@@ -13,5 +13,11 @@ module SimpleCommand
         values.each { |value| add key, value }
       end
     end
+
+    def each
+      each_key do |field|
+        self[field].each { |message| yield field, message }
+      end
+    end
   end
 end
