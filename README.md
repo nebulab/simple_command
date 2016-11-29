@@ -47,7 +47,7 @@ class AuthenticateUser
     if user = User.authenticate(@email, @password)
       return user
     else
-      errors.add(authentication, I18n.t "authenticate_user.failure")
+      errors.add(:authentication, I18n.t "authenticate_user.failure")
     end
     nil
   end
