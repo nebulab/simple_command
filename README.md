@@ -1,5 +1,5 @@
 [![Code Climate](https://codeclimate.com/github/nebulab/simple_command/badges/gpa.svg)](https://codeclimate.com/github/nebulab/simple_command)
-[ ![Codeship Status for nebulab/simple_command](https://img.shields.io/codeship/d6c1ddd0-16a3-0132-5f85-2e35c05e22b1/master.svg)](https://codeship.com/projects/60741)
+[ ![Codeship Status for nebulab/simple_command](https://app.codeship.com/projects/45ce7790-8daf-0132-1412-669677a474c3/status?branch=master)](https://app.codeship.com/projects/60741)
 
 # SimpleCommand
 
