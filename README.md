@@ -85,7 +85,7 @@ end
 ## Test with Rspec
 Make the spec file `spec/commands/authenticate_user_spec.rb` like:
 
-```
+```ruby
 describe AuthenticateUser do
   subject(:context) { described_class.call(user, password) }
 
