@@ -82,6 +82,35 @@ class SessionsController < ApplicationController
 end
 ```
 
+## Test with Rspec
+Make the spec file `spec/commands/authenticate_user_spec.rb` like:
+
+```
+describe AuthenticateUser do
+  subject(:context) { described_class.call(user, password) }
+
+  describe '.call' do
+    context 'when the context is successful' do
+      let(:username) { 'correct_user' }
+      let(:password) { 'correct_password' }
+      
+      it 'succeeds' do
+        expect(context).to be_success
+      end
+    end
+
+    context 'when the context is not successful' do
+      let(:username) { 'wrong_user' }
+      let(:password) { 'wrong_password' }
+
+      it 'fails' do
+        expect(context).to be_failure
+      end
+    end
+  end
+end
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/nebulab/simple_command/fork )
