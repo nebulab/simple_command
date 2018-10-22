@@ -36,8 +36,8 @@ class AuthenticateUser
   prepend SimpleCommand
 
   # optional, initialize the command with some arguments
-  def initialize(user, password)
-    @user = user
+  def initialize(email, password)
+    @email = email
     @password = password
   end
 
@@ -61,7 +61,7 @@ class SessionsController < ApplicationController
   def create
     # initialize and execute the command
     # NOTE: `.call` is a shortcut for `.new(args).call)`
-    command = AuthenticateUser.call(session_params[:user], session_params[:password])
+    command = AuthenticateUser.call(session_params[:email], session_params[:password])
 
     # check command outcome
     if command.success?
