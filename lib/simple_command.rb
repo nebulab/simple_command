@@ -26,6 +26,7 @@ module SimpleCommand
   def success?
     called? && !failure?
   end
+  alias_method :successful?, :success?
 
   def failure?
     called? && errors.any?
