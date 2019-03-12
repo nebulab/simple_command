@@ -55,4 +55,18 @@ describe SimpleCommand::Errors do
       )
     end
   end
+
+  describe '#full_messages' do
+    before do
+      errors.add :attr1, 'has an error'
+      errors.add :attr2, 'has an error'
+      errors.add :attr2, 'has two errors'
+    end
+
+    it "returrns the full messages array" do
+      expect(errors.full_messages).to eq ["Attr1 has an error", "Attr2 has an error", "Attr2 has two errors"]
+    end
+
+  end
+
 end
