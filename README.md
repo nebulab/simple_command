@@ -60,7 +60,7 @@ Then, in your controller:
 class SessionsController < ApplicationController
   def create
     # initialize and execute the command
-    # NOTE: `.call` is a shortcut for `.new(args).call)`
+    # NOTE: `.call` is a shortcut for `.new(args).call`
     command = AuthenticateUser.call(session_params[:email], session_params[:password])
 
     # check command outcome
