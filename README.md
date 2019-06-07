@@ -34,6 +34,7 @@ Here's a basic example of a command that authenticates a user
 class AuthenticateUser
   # put SimpleCommand before the class' ancestors chain
   prepend SimpleCommand
+  include ActiveModel::Validations
 
   # optional, initialize the command with some arguments
   def initialize(email, password)
@@ -44,14 +45,25 @@ class AuthenticateUser
   # mandatory: define a #call method. its return value will be available
   #            through #result
   def call
-    if user = User.authenticate(@email, @password)
+    if user = User.find_by(email: @email)&.authenticate(@password)
       return user
     else
-      errors.add(:authentication, I18n.t "authenticate_user.failure")
+      errors.add(:base, :failure)
     end
     nil
   end
 end
+```
+
+in your locale file
+```yaml
+# config/locales/en.yml
+en:
+  activemodel:
+    errors:
+      models:
+        authenticate_user:
+          failure: Wrong email or password
 ```
 
 Then, in your controller:
@@ -69,7 +81,7 @@ class SessionsController < ApplicationController
       session[:user_token] = command.result.secret_token
       redirect_to root_path
     else
-      flash.now[:alert] = t(command.errors[:authentication])
+      flash.now[:alert] = t(command.errors.full_messages.to_sentence)
       render :new
     end
   end

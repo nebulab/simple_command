@@ -33,6 +33,8 @@ module SimpleCommand
   end
 
   def errors
+    return super if defined?(super)
+
     @errors ||= Errors.new
   end
 
