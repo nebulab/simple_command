@@ -5,8 +5,8 @@ module SimpleCommand
   attr_reader :result
 
   module ClassMethods
-    def call(*args)
-      new(*args).call
+    def call(*args, &block)
+      new(*args).call(&block)
     end
   end
 
@@ -19,6 +19,8 @@ module SimpleCommand
 
     @called = true
     @result = super
+
+    yield(self) if success? && block_given?
 
     self
   end
