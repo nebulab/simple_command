@@ -78,7 +78,18 @@ describe SimpleCommand::Errors do
     it "returrns the full messages array" do
       expect(errors.full_messages).to eq ["Attr1 has an error", "Attr2 has an error", "Attr2 has two errors"]
     end
-
   end
 
+  describe "#to_json" do
+    it "groups errors by key values" do
+      errors.add :attr1, 'has an error'
+      errors.add :attr2, 'has an error'
+      errors.add :attr2, 'has two errors'
+
+      expect(JSON.parse(errors.to_json)).to eq(
+        "attr1" => ["has an error"],
+        "attr2" => ["has an error", "has two errors"]
+      )
+    end
+  end
 end
