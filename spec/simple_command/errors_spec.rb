@@ -80,6 +80,39 @@ describe SimpleCommand::Errors do
     end
   end
 
+  describe "#as_json" do
+    it "raises a NotImplementedError" do
+      expect { errors.as_json }.to raise_error SimpleCommand::NotImplementedError
+    end
+
+    context "when Hash supports as_json" do
+      module HashAsJsonMixin
+        # Mock example of as_json from ActiveSupport
+        def as_json(options)
+          JSON.parse(to_json(options))
+        end
+      end
+
+      around do |example|
+        inject_required = !Hash.new.respond_to?(:as_json)
+        Hash.include HashAsJsonMixin if inject_required
+        example.run
+        Hash.undef_method(:as_json) if inject_required
+      end
+
+      it "groups errors by key values" do
+        errors.add :attr1, 'has an error'
+        errors.add :attr2, 'has an error'
+        errors.add :attr2, 'has two errors'
+
+        expect(errors.as_json).to eq(
+          "attr1" => ["has an error"],
+          "attr2" => ["has an error", "has two errors"]
+        )
+      end
+    end
+  end
+
   describe "#to_json" do
     it "groups errors by key values" do
       errors.add :attr1, 'has an error'
