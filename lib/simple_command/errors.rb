@@ -10,7 +10,7 @@ module SimpleCommand
 
     def add_multiple_errors(errors_hash)
       errors_hash.each do |key, values|
-        values.each { |value| add key, value }
+        SimpleCommand::Utils.array_wrap(values).each { |value| add key, value }
       end
     end
 

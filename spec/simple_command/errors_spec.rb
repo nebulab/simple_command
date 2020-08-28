@@ -19,20 +19,32 @@ describe SimpleCommand::Errors do
   end
 
   describe '#add_multiple_errors' do
-    let(:errors_list) do
-      {
+    it 'populates itself with the added errors' do
+      errors_list = {
         some_error: ['some error description'],
         another_error: ['another error description']
       }
-    end
 
-    before do
       errors.add_multiple_errors errors_list
-    end
 
-    it 'populates itself with the added errors' do
       expect(errors[:some_error]).to eq(errors_list[:some_error])
       expect(errors[:another_error]).to eq(errors_list[:another_error])
+    end
+
+    it 'copies errors from another SimpleCommand::Errors object' do
+      command_errors = SimpleCommand::Errors.new
+      command_errors.add :some_error, "was found"
+      command_errors.add :some_error, "happened again"
+
+      errors.add_multiple_errors command_errors
+
+      expect(errors[:some_error]).to eq(["was found", "happened again"])
+    end
+
+    it "ignores nil values" do
+      errors.add_multiple_errors({:foo => nil})
+
+      expect(errors[:foo]).to eq nil
     end
   end
 
