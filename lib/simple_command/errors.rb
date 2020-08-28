@@ -24,6 +24,18 @@ module SimpleCommand
       map { |attribute, message| full_message(attribute, message) }
     end
 
+    # Allow ActiveSupport to render errors similar to ActiveModel::Errors
+    def as_json(options = nil)
+      Hash.new.tap do |output|
+        raise NotImplementedError.new unless output.respond_to?(:as_json)
+
+        self.each do |field, value|
+          output[field] ||= []
+          output[field] << value
+        end
+      end.as_json(options)
+    end
+
     private
     def full_message(attribute, message)
       return message if attribute == :base
