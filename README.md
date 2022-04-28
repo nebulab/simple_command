@@ -7,7 +7,7 @@ A simple, standardized way to build and use _Service Objects_ (aka _Commands_) i
 
 ## Requirements
 
-* Ruby 2.0+
+* Ruby 2.7+
 
 ## Installation
 
