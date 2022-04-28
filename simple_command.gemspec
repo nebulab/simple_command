@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'simple_command/version'
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = '>= 2.0'
+  s.required_ruby_version = '>= 2.6'
   s.name          = 'simple_command'
   s.version       = SimpleCommand::VERSION
   s.authors       = ['Andrea Pavoni']
