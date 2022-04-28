@@ -1,4 +1,5 @@
 require 'simple_command/version'
+require 'simple_command/utils'
 require 'simple_command/errors'
 
 module SimpleCommand
